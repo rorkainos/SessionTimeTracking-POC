@@ -60,7 +60,6 @@ const useSessionTimer = (sessionStateConfiguration?: SessionStateConfiguration) 
     })
 
     useEffect(() => {
-        // Function to be called immediately
         const updateRemaining = () => {
             setRemainingTime(Math.ceil(getRemainingTime() / 1000));
         };
