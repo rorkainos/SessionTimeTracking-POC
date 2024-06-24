@@ -5,6 +5,8 @@ import useSessionTimer, { SessionStateConfiguration } from '../utils/SessionTime
 
 const About: React.FC = () => {
 
+  // perhaps on a particular page we want to create some cloudwatch logs on idle, this allows us to 
+  // do this on a per page basis
   const sessionStateInterceptor: SessionStateConfiguration = {
     onIdle: () => {
       console.log("POC to show interceptor logic functionality available for idle, active and prompt");
