@@ -1,6 +1,6 @@
 // useSessionTimer.ts
 import { useEffect, useState }  from 'react';
-import { useIdleTimer, IIdleTimer } from 'react-idle-timer';
+import { useIdleTimer } from 'react-idle-timer';
 import { useNavigate } from 'react-router-dom';
 
 const lengthOfSession = 9_000
