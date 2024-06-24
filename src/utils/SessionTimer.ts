@@ -48,10 +48,13 @@ const useSessionTimer = (sessionStateConfiguration?: SessionStateConfiguration) 
         setOpen(true)
     }
 
+    
     const { getRemainingTime, activate } = useIdleTimer({
         onIdle,
         onActive,
         onPrompt,
+        crossTab: true, // needed for cross tab time consistency
+        syncTimers: 0.5, // needed for cross tab consistency
         timeout: lengthOfSession,
         promptBeforeIdle: promptDurationBeforeIdle
     })
