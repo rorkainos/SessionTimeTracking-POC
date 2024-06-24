@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/about.css';
-import useSessionTimer from '../utils/SessionTimer';
+import useSessionTimer, { SessionStateInterceptor } from '../utils/SessionTimer';
 
 const About: React.FC = () => {
 
-  const {timeTillPrompt, remainingTime, open, state, activate} = useSessionTimer();
+  const sessionStateInterceptor: SessionStateInterceptor = {
+    onIdle: () => {
+      console.log("POC to show interceptor logic functionality available for idle, active and prompt");
+    }
+  };
+  
+  const {timeTillPrompt, remainingTime, open, state, activate} = useSessionTimer(sessionStateInterceptor);
   
   return (
     <div>

@@ -1,5 +1,5 @@
 // useSessionTimer.ts
-import React, { useEffect, useState }  from 'react';
+import { useEffect, useState }  from 'react';
 import { useIdleTimer, IIdleTimer } from 'react-idle-timer';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,14 +7,13 @@ const lengthOfSession = 9_000
 const promptDurationBeforeIdle = 4_000
 const rateAtWhichUseEffectCalled = 500
 
-type idleTimer = (event?: Event | undefined, idleTimer?: IIdleTimer | undefined) => void;
-type sessionStateInterceptor = {
-    onIdle?: idleTimer;
-    onActive?: idleTimer;
-    onPrompt?: idleTimer
+export type SessionStateInterceptor = {
+    onIdle?: () => void;
+    onActive?: () => void;
+    onPrompt?: () => void;
 }
 
-const useSessionTimer = (sessionStateInterceptor?: sessionStateInterceptor) => {
+const useSessionTimer = (sessionStateInterceptor?: SessionStateInterceptor) => {
     const [state, setState] = useState<string>('Active')
     const [open, setOpen] = useState<boolean>(false)    
     const [remainingTime, setRemainingTime] = useState<number>(lengthOfSession)
