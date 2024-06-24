@@ -6,14 +6,16 @@ import { useNavigate } from 'react-router-dom';
 const lengthOfSession = 9_000
 const promptDurationBeforeIdle = 4_000
 const rateAtWhichUseEffectCalled = 500
+const homePagePath = "/"
 
-export type SessionStateInterceptor = {
+export type SessionStateConfiguration = {
+    redirectAfterIdle?: string;
     onIdle?: () => void;
     onActive?: () => void;
     onPrompt?: () => void;
 }
 
-const useSessionTimer = (sessionStateInterceptor?: SessionStateInterceptor) => {
+const useSessionTimer = (sessionStateConfiguration?: SessionStateConfiguration) => {
     const [state, setState] = useState<string>('Active')
     const [open, setOpen] = useState<boolean>(false)    
     const [remainingTime, setRemainingTime] = useState<number>(lengthOfSession)
@@ -21,16 +23,17 @@ const useSessionTimer = (sessionStateInterceptor?: SessionStateInterceptor) => {
 
     const onIdle = () => {
 
-        if(sessionStateInterceptor?.onIdle)
-            sessionStateInterceptor.onIdle();
+        if(sessionStateConfiguration?.onIdle)
+            sessionStateConfiguration.onIdle();
 
+        const redirectPage = sessionStateConfiguration?.redirectAfterIdle ? sessionStateConfiguration.redirectAfterIdle : homePagePath
         setOpen(false)
-        navigate("/")
+        navigate(redirectPage)
     }
     
     const onActive = () => {
-        if(sessionStateInterceptor?.onActive)
-            sessionStateInterceptor.onActive();
+        if(sessionStateConfiguration?.onActive)
+            sessionStateConfiguration.onActive();
 
         setState("Active")
         setOpen(false)
@@ -38,8 +41,8 @@ const useSessionTimer = (sessionStateInterceptor?: SessionStateInterceptor) => {
     
     const onPrompt = () => {
 
-        if(sessionStateInterceptor?.onPrompt)
-            sessionStateInterceptor.onPrompt();
+        if(sessionStateConfiguration?.onPrompt)
+            sessionStateConfiguration.onPrompt();
 
         setState('Prompted')
         setOpen(true)
