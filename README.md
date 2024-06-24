@@ -17,11 +17,15 @@ You will also see any lint errors in the console.
 
 ## Points Of Interest
 src
- | components
-    - Home.tsx simple log in page with hard coded credentials to mock our project home page, doesn't really matter simply something to redirect too
-    - About.tsx mocking a page in our project that we want session timeout tracking
- | utils
-    - SessionTimer.ts just encapsulated the logic in this class as i assume we want session timeouts to be consistent across the application. I 
-                     placed in interceptor functions incase we want some unique logic for any particular page in the active, prompt or idle 
-                     phase of the session timeout workflow. Additionally i thought it possible that for a page we might want to redirect somewhere else
-                     after idle rather than home so i made that configurable too (probably not needed).
+ ├── components
+ │   ├── Home.tsx
+ │   │   - Simple login page with hard-coded credentials to mock our project home page.
+ │   │   - Doesn't really matter, simply something to redirect to.
+ │   ├── About.tsx
+ │   │   - Mocks a page in our project that we want session timeout tracking.
+ │
+ ├── utils
+     ├── SessionTimer.ts
+         - Encapsulates the logic for session timeouts to ensure consistency across the application.
+         - Includes interceptor functions in case we want some unique logic for any particular page in the active, prompt, or idle phase of the session timeout workflow.
+         - Configurable to redirect somewhere else after idle rather than home (probably not needed).
